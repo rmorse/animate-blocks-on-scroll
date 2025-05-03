@@ -32,7 +32,7 @@ function abos_enqueue_frontend_assets() {
     if (!is_admin()) {
         // Enqueue SAL.js
         wp_enqueue_script(
-            'sal-js',
+            'sal',
             plugins_url('sal.js', __FILE__),
             array(),
             '1.0.0',
@@ -41,7 +41,7 @@ function abos_enqueue_frontend_assets() {
         
         // Enqueue SAL.css
         wp_enqueue_style(
-            'sal-css',
+            'sal',
             plugins_url('sal.css', __FILE__),
             array(),
             '1.0.0'
@@ -49,7 +49,7 @@ function abos_enqueue_frontend_assets() {
 
         // Add inline script to initialize SAL
         wp_add_inline_script(
-            'sal-js',
+            'sal',
             'sal();',
             'after'
         );
