@@ -79,7 +79,14 @@ add_filter('render_block', 'cba_filter_block_output', 10, 2);
 // Register block attributes
 function cba_register_block_attributes() {
     register_meta('post', 'dataAttributes', [
-        'show_in_rest' => true,
+        'show_in_rest' => array(
+            'schema' => array(
+                'type'  => 'array',
+                'items' => array(
+                    'type' => 'string',
+                )
+            )
+        ),
         'single' => true,
         'type' => 'array',
         'default' => [],
