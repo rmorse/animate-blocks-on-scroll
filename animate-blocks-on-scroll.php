@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Animate Blocks On Scroll
- * Description: Adds a custom panel to the block inspector for adding data attributes
+ * Description: Adds a custom panel to the block inspector for adding scroll animations.
  * Version: 1.0.0
  * Author: Your Name
  * License: GPL v2 or later
