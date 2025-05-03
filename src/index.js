@@ -7,7 +7,7 @@ import { useState, useEffect } from '@wordpress/element';
 // Register the dataAttributes for all blocks
 addFilter(
     'blocks.registerBlockType',
-    'custom-block-attributes/add-attributes',
+    'animate-blocks-on-scroll/add-attributes',
     (settings) => {
         // Store the original save function
         const originalSave = settings.save;
@@ -229,6 +229,6 @@ const withCustomAttributes = createHigherOrderComponent((BlockEdit) => {
 // Add our custom attributes panel to all blocks
 addFilter(
     'editor.BlockEdit',
-    'custom-block-attributes/with-custom-attributes',
+    'animate-blocks-on-scroll/with-custom-attributes',
     withCustomAttributes
 ); 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Custom Block Attributes
+ * Plugin Name: Animate Blocks On Scroll
  * Description: Adds a custom panel to the block inspector for adding data attributes
  * Version: 1.0.0
  * Author: Your Name
@@ -12,22 +12,22 @@ if (!defined('ABSPATH')) {
 }
 
 // Register our assets
-function cba_register_block_editor_assets() {
+function abos_register_block_editor_assets() {
     $asset_file = include(plugin_dir_path(__FILE__) . 'build/index.asset.php');
     
     wp_register_script(
-        'custom-block-attributes',
+        'animate-blocks-on-scroll',
         plugins_url('build/index.js', __FILE__),
         array_merge($asset_file['dependencies'], ['wp-blocks', 'wp-dom-ready', 'wp-edit-post']),
         $asset_file['version']
     );
 
-    wp_enqueue_script('custom-block-attributes');
+    wp_enqueue_script('animate-blocks-on-scroll');
 }
-add_action('enqueue_block_editor_assets', 'cba_register_block_editor_assets');
+add_action('enqueue_block_editor_assets', 'abos_register_block_editor_assets');
 
 // Enqueue SAL.js and SAL.css on the frontend
-function cba_enqueue_frontend_assets() {
+function abos_enqueue_frontend_assets() {
     // Only enqueue on the frontend, not in the admin
     if (!is_admin()) {
         // Enqueue SAL.js
@@ -46,12 +46,19 @@ function cba_enqueue_frontend_assets() {
             array(),
             '1.0.0'
         );
+
+        // Add inline script to initialize SAL
+        wp_add_inline_script(
+            'sal-js',
+            'sal();',
+            'after'
+        );
     }
 }
-add_action('wp_enqueue_scripts', 'cba_enqueue_frontend_assets');
+add_action('wp_enqueue_scripts', 'abos_enqueue_frontend_assets');
 
 // Filter block output to add data attributes
-function cba_filter_block_output($block_content, $block) {
+function abos_filter_block_output($block_content, $block) {
     if (empty($block['attrs']['dataAttributes'])) {
         return $block_content;
     }
@@ -74,10 +81,10 @@ function cba_filter_block_output($block_content, $block) {
 
     return $processor->get_updated_html();
 }
-add_filter('render_block', 'cba_filter_block_output', 10, 2);
+add_filter('render_block', 'abos_filter_block_output', 10, 2);
 
 // Register block attributes
-function cba_register_block_attributes() {
+function abos_register_block_attributes() {
     register_meta('post', 'dataAttributes', [
         'show_in_rest' => array(
             'schema' => array(
@@ -92,4 +99,4 @@ function cba_register_block_attributes() {
         'default' => [],
     ]);
 }
-add_action('init', 'cba_register_block_attributes'); 
+add_action('init', 'abos_register_block_attributes'); 
